@@ -1,5 +1,6 @@
 # preEntrega1-DelPercio
 
+### Project setup
 ```bash
 yarn install
 ```
