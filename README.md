@@ -1,4 +1,4 @@
 # preEntrega1-DelPercio
 
-yarn install
-yarn serve
+## yarn install
+## yarn dev
