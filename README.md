@@ -1,4 +1,11 @@
 # preEntrega1-DelPercio
 
-## yarn install
-## yarn dev
+```bash
+yarn install
+```
+
+### Compiles and hot-reloads for development
+
+```bash
+yarn dev
+```
