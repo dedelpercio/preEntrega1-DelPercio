@@ -1,10 +1,10 @@
-import './Categories.css';
-import ItemListCard from '../ItemListCard/ItemListCard.jsx';
+import './ItemsListContainer.css';
+import ItemListMap from '../ItemsListMap/ItemsListMap.jsx';
 
-function Categories({title}) {
+function ItemsListContainer({greeting}) {
 
-  // Category items
-  const catItems = [
+  // Items list
+  const itemsList = [
     {
       name: 'Arte',
       description: 'Compra todos los artículos que necesitas para tus creaciones de bellas artes.',
@@ -33,12 +33,12 @@ function Categories({title}) {
 
   return (
     <div>
-      <h4 className="my-3">{ title }</h4>
+      <h2>{greeting}</h2>
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-        <ItemListCard items={ catItems }/>
+        <ItemListMap items={ itemsList }/>
       </div>
     </div>
   )
 }
 
-export default Categories;
+export default ItemsListContainer;

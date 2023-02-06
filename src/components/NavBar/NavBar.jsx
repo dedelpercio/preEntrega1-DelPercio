@@ -6,23 +6,29 @@ function NavBar() {
   // Menu items
   const menuItems = [
     {
-      text: 'Home',
-      name: 'home',
-      link: '#'
+      text: 'Arte',
+      link: '#',
     },
     {
-      text: 'Productos',
-      name: 'products',
-      link: '#'
+      text: 'Bazar',
+      link: '#',
+    },
+    {
+      text: 'Deco',
+      link: '#',
+    },
+    {
+      text: 'Muebles',
+      link: '#',
     }
-  ];
+  ];;
 
   // Menu element
   const menu = []
 
   // Add UI for menu items into menu element
   menuItems.map((item, index) => {
-    const classes = `nav-item nav_item__${item.name}`;
+    const classes = `nav-item`;
     menu.push(
       <li className={classes} key={index}>
         <a className='nav-link' href={item.link}>{item.text}</a>
