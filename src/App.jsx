@@ -1,14 +1,21 @@
 import './App.css';
 import NavBar from './components/NavBar/NavBar.jsx';
 import ItemsListContainer from './components/ItemsListContainer/ItemsListContainer';
-import ItemContainer from './components/ItemContainer/ItemContainer';
+import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 function App() {
   return (
     <div className="container-fluid px-4">
-      <NavBar />
-      <ItemsListContainer greeting="Hola, Damian." />
-      <ItemContainer />
+      <BrowserRouter>
+        <NavBar />
+        <Routes>
+          <Route path='/' element={ <ItemsListContainer greeting="Hola, Damian." /> } />
+          <Route path='/category/:id' element={ <ItemsListContainer /> } />
+          <Route path='/detail/:id' element={ <ItemDetailContainer /> } />
+          <Route path='*' element={ <Navigate to='/' /> } />
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }

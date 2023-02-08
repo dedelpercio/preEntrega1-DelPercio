@@ -1,3 +1,5 @@
+import ItemCount from '../ItemCount/ItemCount.jsx';
+
 function ItemDetail({ item }) {
   return (
     <div className="col">
@@ -10,7 +12,10 @@ function ItemDetail({ item }) {
             <div className="card-body">
               <h5 className="card-title">{ item.name }</h5>
               <p className="card-text">{ item.description }</p>
-              <p className="card-text"><small className="text-muted">{ item.category }</small></p>
+              <h3>${ item.price }</h3>
+              <span className="badge bg-warning text-dark me-1 mb-1">{ item.category }</span>
+              <span className="badge bg-warning text-dark mb-1">{ item.stock } in stock</span>
+              <ItemCount init={1} stock={item.stock} onAdd={() => {}} />
             </div>
           </div>
         </div>

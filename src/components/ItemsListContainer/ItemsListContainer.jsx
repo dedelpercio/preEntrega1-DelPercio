@@ -3,18 +3,21 @@ import ItemListMap from '../ItemsListMap/ItemsListMap.jsx';
 import Loading from '../Loading/Loading.jsx';
 import { useEffect, useState } from 'react';
 import { gFetch } from '../../utils/gFetch';
+import { useParams } from 'react-router-dom';
 
 function ItemsListContainer({greeting}) {
 
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState();
+  const { id } = useParams();
 
   useEffect(() => {
-    gFetch()
+    setLoading(true);
+    gFetch(id, 'category')
       .then(response => setProducts(response))
       .catch(error => console.error(error))
       .finally( () => setLoading(false))
-  }, [])
+  }, [id])
 
   const setRowClasses = () => loading
     ? 'row pt-5'

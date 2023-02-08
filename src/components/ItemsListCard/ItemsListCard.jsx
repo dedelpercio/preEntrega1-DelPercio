@@ -1,4 +1,5 @@
 import './ItemsListCard.css';
+import { NavLink } from 'react-router-dom';
 
 function ItemsListCard({item}) {
   return(
@@ -10,7 +11,7 @@ function ItemsListCard({item}) {
         <p className="card-text">{ item.description }</p>
       </div>
       <div className="d-grid">
-        <a href={item.link} className="btn btn-primary" tabIndex="-1" role="button" aria-disabled="true">Ver mas</a>
+        <NavLink className="btn btn-primary" tabIndex="-1" role="button" aria-disabled="true" to={`/detail/${item.id}`}>Ver mas</NavLink>
       </div>
     </div>
   </div>

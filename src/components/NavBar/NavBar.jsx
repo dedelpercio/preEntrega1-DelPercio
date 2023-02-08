@@ -1,5 +1,6 @@
 import './NavBar.css';
 import CartWidget from '../CartWidget/CartWidget.jsx';
+import { Link, NavLink } from 'react-router-dom';
 
 function NavBar() {
 
@@ -8,18 +9,22 @@ function NavBar() {
     {
       text: 'Arte',
       link: '#',
+      category: 'arte',
     },
     {
       text: 'Bazar',
       link: '#',
+      category: 'bazar',
     },
     {
       text: 'Deco',
       link: '#',
+      category: 'deco',
     },
     {
       text: 'Muebles',
       link: '#',
+      category: 'muebles',
     }
   ];;
 
@@ -31,14 +36,16 @@ function NavBar() {
     const classes = `nav-item`;
     menu.push(
       <li className={classes} key={index}>
-        <a className='nav-link' href={item.link}>{item.text}</a>
+        <NavLink className={({isActive}) => isActive ? 'active nav-link' : 'nav-link'} to={`/category/${item.category}`}>{item.text}</NavLink>
       </li>
     );
   })
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <a className="navbar-brand" href="#">DeRegalos</a>
+      <Link to='/' className="navbar-brand">
+        <span >DeRegalos</span>
+      </Link>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>

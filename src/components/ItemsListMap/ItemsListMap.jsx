@@ -6,9 +6,9 @@ function ItemsListMap({items}) {
   const itemsList = []
 
   // Add UI for category items into categories element
-  items.map((item, index) => {
+  items.map((item) => {
     itemsList.push(
-      <ItemsListCard item={item} key={index}/>
+      <ItemsListCard item={item} key={item.id}/>
     );
   })
 
