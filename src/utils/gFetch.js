@@ -73,6 +73,12 @@ let products = [
   }
 ];
 
+/**
+ * 
+ * @param {string} id 
+ * @param {string} type 
+ * @returns Promise
+ */
 export const gFetch = (id, type) => new Promise((response, rejected) => {
   if(products) {
     setTimeout(() => {
