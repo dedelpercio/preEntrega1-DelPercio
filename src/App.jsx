@@ -4,20 +4,25 @@ import ItemsListContainer from './components/ItemsListContainer/ItemsListContain
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import PageNotFound from './views/PageNotFound/PageNotFound';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import CartContextProvider from './context/CartContext';
+import CartContainer from './components/CartContainer/CartContainer';
 
 function App() {
   return (
     <div className="container-fluid px-4">
-      <BrowserRouter>
-        <NavBar />
-        <Routes>
-          <Route path='/' element={ <ItemsListContainer greeting="Hola, Damian." /> } />
-          <Route path='/category/:id' element={ <ItemsListContainer /> } />
-          <Route path='/detail/:id' element={ <ItemDetailContainer /> } />
-          <Route path="/404" element={<PageNotFound />} />
-          <Route path='*' element={ <Navigate to="/404" /> } />
-        </Routes>
-      </BrowserRouter>
+      <CartContextProvider>
+        <BrowserRouter>
+          <NavBar />
+          <Routes>
+            <Route path='/' element={ <ItemsListContainer greeting="Hola, Damian." /> } />
+            <Route path='/category/:id' element={ <ItemsListContainer /> } />
+            <Route path='/detail/:id' element={ <ItemDetailContainer /> } />
+            <Route path="/cart" element={<CartContainer />} />
+            <Route path="/404" element={<PageNotFound />} />
+            <Route path='*' element={ <Navigate to="/404" /> } />
+          </Routes>
+        </BrowserRouter>
+      </CartContextProvider>
     </div>
   )
 }
