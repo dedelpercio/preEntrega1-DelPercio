@@ -1,7 +1,7 @@
 import ItemDetail from '../ItemDetail/ItemDetail.jsx';
 import Loading from '../Loading/Loading.jsx';
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { gFetch } from '../../utils/gFetch';
 import { useParams } from 'react-router-dom';
 
 function ItemDetailContainer() {
@@ -10,10 +10,13 @@ function ItemDetailContainer() {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
+  // TO DO: Pasarle el id dinamico
   useEffect(() => {
+    const db = getFirestore();
+    const query = doc(db, 'products', id);
     setLoading(true);
-    gFetch(id, 'item')
-      .then(response => setItem(response))
+    getDoc(query)
+      .then(response => setItem({ id: response.id, ...response.data() }))
       .catch(error => console.error(error))
       .finally( () => setLoading(false))
   }, [id])
