@@ -24,6 +24,10 @@ function ItemCount({init, stock, onAdd}) {
     }
   }
 
+  /**
+   * AddItemToCart() is a function that sets the state of add to true and calls the
+   * onAdd function with the count as an argument
+   */
   const addItemToCart = () => {
     setAdd(true);
     onAdd(count);
@@ -42,7 +46,7 @@ function ItemCount({init, stock, onAdd}) {
         type="button"
         className="btn btn-primary d-block mt-2"
         onClick={addItemToCart}>
-        Agregar al Carrito
+          Agregar al Carrito
       </button>
     </div>
   );

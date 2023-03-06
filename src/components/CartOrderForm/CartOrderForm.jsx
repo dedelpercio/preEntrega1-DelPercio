@@ -13,8 +13,13 @@ const CartOrderForm = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const { cartList, clearCart } = useContext(CartContext);
+  const { cartList, clearCart, addOrder } = useContext(CartContext);
 
+  /**
+   * It creates an order object with the buyer's data, the total price and the items
+   * in the cart. Then we add the order to the orders collection and update the stock
+   * of the items in the cart
+   */
   const createOrder = (event) => {
     event.preventDefault();
     const order = {
@@ -26,10 +31,13 @@ const CartOrderForm = () => {
     const db = getFirestore();
     const queryCollection = collection(db, 'orders');
 
-    // Add order
+    /* A promise chain to add an order */
     addDoc(queryCollection, order)
-      .then(() => setLoading(true))
-      .catch(resp => console.log(resp))
+      .then((resp) => {
+        setLoading(true)
+        addOrder(resp.id)
+      })
+      .catch(resp => console.warn(resp))
       .finally(() => {
         clearCart();
         setDataForm({
@@ -39,15 +47,11 @@ const CartOrderForm = () => {
         });
         setLoading(false);
       })
-
-    // Update items stock
-    const queryDoc = doc(db, 'products', '36oZMz1Pzg0PkyaRbhk3');
-    updateDoc(queryDoc, {
-      stock: 10
-    })
-    .then(() => console.log('updated'))
   };
 
+  /**
+   * A function that is used to update the state of the form.
+   */
   const handlerOnChange = (event) => {
     setDataForm({
       ...dataForm,
