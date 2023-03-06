@@ -5,6 +5,10 @@ import ItemCount from '../ItemCount/ItemCount.jsx';
 function ItemDetail({ item }) {
   const { addToCart } = useContext(CartContext);
 
+  /**
+   * The function takes a quantity as an argument, and then calls the addToCart
+   * function, passing in the item and quantity
+   */
   const onAdd = (quantity = 1) => {
     addToCart({
       ...item,

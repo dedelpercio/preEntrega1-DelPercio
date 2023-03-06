@@ -10,7 +10,8 @@ function ItemDetailContainer() {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
-  // TO DO: Pasarle el id dinamico
+  /* A hook that is called when the component is mounted. It is used to fetch the
+  data from the database. */
   useEffect(() => {
     const db = getFirestore();
     const query = doc(db, 'products', id);

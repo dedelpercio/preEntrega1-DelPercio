@@ -8,30 +8,26 @@ function NavBar() {
   const menuItems = [
     {
       text: 'Arte',
-      link: '#',
       category: 'arte',
     },
     {
       text: 'Bazar',
-      link: '#',
       category: 'bazar',
     },
     {
       text: 'Deco',
-      link: '#',
       category: 'deco',
     },
     {
       text: 'Muebles',
-      link: '#',
       category: 'muebles',
     }
-  ];;
+  ];
 
   // Menu element
   const menu = []
 
-  // Add UI for menu items into menu element
+  /* Creating a list of menu items. */
   menuItems.map((item, index) => {
     const classes = `nav-item`;
     menu.push(

@@ -5,12 +5,19 @@ function ItemCount({init, stock, onAdd}) {
   const [count, setCount] = useState(init);
   const [add, setAdd] = useState(false);
 
+  /**
+   * If the count is less than the stock, add one to the count
+   */
   const addItem = () => {
     if(count < stock) {
       setCount(count + 1)
     }
   }
 
+  /**
+   * If the count is greater than the initial value, then set the count to the
+   * current count minus one
+   */
   const removeItem = () => {
     if(count > init) {
       setCount(count - 1)

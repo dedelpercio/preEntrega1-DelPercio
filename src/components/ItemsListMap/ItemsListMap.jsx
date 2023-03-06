@@ -6,7 +6,7 @@ const ItemsListMap = memo(({items}) => {
     // Categories element
     const itemsList = []
   
-    // Add UI for category items into categories element
+    /* Mapping through the items array and pushing each item into the itemsList array. */
     items.map((item) => {
       itemsList.push(
         <ItemsListCard item={item} key={item.id}/>

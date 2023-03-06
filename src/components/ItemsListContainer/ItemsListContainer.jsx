@@ -12,17 +12,17 @@ function ItemsListContainer({greeting}) {
   const { id } = useParams();
 
   useEffect(() => {
-    // Set firestore and query
+    /* Getting the firestore and querying the products collection. */
     const db = getFirestore();
     const q = query(
       collection(db, 'products'),
       id ? where('category', '==', id) : ''
     );
     
-    // Init loading
+    /* Setting the loading state to true. */
     setLoading(true);
 
-    // Get data
+    /* Getting the data from the database and setting it to the state. */
     getDocs(q)
       .then(response => setProducts(response.docs.map(prod => ({ id: prod.id, ...prod.data() }))))
       .catch(error => console.error(error))

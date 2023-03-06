@@ -1,88 +1,41 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { CartContext } from '../../context/CartContext.jsx';
-import { addDoc, collection, doc, getFirestore, updateDoc } from 'firebase/firestore';
+import CartOrderForm from '../CartOrderForm/CartOrderForm.jsx';
+import CartItems from '../CartItems/CartItems.jsx';
 
 
 const CartContainer = () => {
-  const [dataForm, setDataForm] = useState({
-    name: '',
-    phone: '',
-    email: ''
-  });
+  const { cartList, clearCart } = useContext(CartContext);
 
-  const { cartList, clearCart, removeItem } = useContext(CartContext);
-
-  const createOrder = (event) => {
-    event.preventDefault();
-    const order = {
-      buyer: dataForm,
-      total: 100,
-      items: cartList
-    };
-
-    const db = getFirestore();
-    const queryCollection = collection(db, 'orders');
-
-    // Add order
-    addDoc(queryCollection, order)
-      .then(resp => console.log(resp))
-      .catch(resp => console.log(resp))
-      .finally(() => {
-        clearCart();
-        setDataForm({
-          name: '',
-          phone: '',
-          email: ''
-        })
-      })
-
-    // Update items stock
-    const queryDoc = doc(db, 'products', '36oZMz1Pzg0PkyaRbhk3');
-    updateDoc(queryDoc, {
-      stock: 10
-    })
-    .then(() => console.log('updated'))
-  };
-
-  const handlerOnChange = (event) => {
-    setDataForm({
-      ...dataForm,
-      [event.target.name]: event.target.value
-    })
+  /**
+   * If the cartList array has a length greater than 0, return true, otherwise return
+   * false.
+   * @returns The length of the cartList array.
+   */
+  const isActive = () => {
+    return cartList.length > 0;
   }
 
   return (
     <div className="container">
       {
-        cartList.map((item) => {
-          return (
-            // CREAR COMPONENTE DE CART ITEMS APARTE:
-            <div key={item.index}>
-              <h2>{item.name}</h2>
-              <ul>
-                <li>Precio: {item.price}</li>
-                <li>Categoria: {item.category}</li>
-                <li>Cantidad: {item.quantity}</li>
-              </ul>
-              <button type="button" className="btn btn-danger" onClick={() => removeItem(item.id)}>Delete</button>
+        isActive()
+          ? <div>
+              {
+                cartList.map((item) => {
+                  return (
+                    <CartItems item={ item }/>
+                  )
+                })
+              }
+              <p>Precio total:</p>
+              <button type="button" className='btn btn-secondary' onClick={clearCart}>Vaciar Carrito</button>
+              <CartOrderForm />
             </div>
-          )
-        })
-      }
-
-      <p>Precio total:</p>
-      <button type="button" className='btn btn-secondary' onClick={clearCart}>Vaciar Carrito</button>
-
-      <div className="d-flex justify-content-center mt-3 p-5 align-items-center border border-2 border-secondary rounded">
-        // CREAR COMPONENTE FORM APARTE:
-        <form className="form-group w-50" onSubmit={createOrder}>
-          <input value={dataForm.name} className='form-control' type="text" name='name' placeholder='ingresar nombre' onChange={handlerOnChange} required/>
-          <input value={dataForm.phone} className='form-control' type="number" name='phone' placeholder='ingresar telefono' onChange={handlerOnChange} required/>
-          <input value={dataForm.email} className='form-control' type="text" name='email' placeholder='ingresar email' onChange={handlerOnChange} required/>
-          <input className='form-control' type="text" name='validarEmail' placeholder='Repetir email' onChange={handlerOnChange} required/>
-          <button type="submit" className='btn btn-success mt-2'>Crear Orden</button>
-        </form>
-      </div>
+          : <div className="alert alert-danger" role="alert">
+              No hay productos en su carrito de compras
+            </div>
+        }
     </div>
   )
 }
