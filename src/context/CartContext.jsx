@@ -9,13 +9,29 @@ const CartContextProvider = ({ children }) => {
    * AddToCart is a function that takes in an item and adds it to the cartList array
    */
   const addToCart = (item) => {
-    // Reset order id
+    /* Resetting the orderId state to an empty string. */
     setorderId('');
-    
-    setCartList([
+
+    /* Using the spread operator to create a new array that is a copy of the cartList
+    array. */
+    const cart = [
       ...cartList,
       item
-    ]);
+    ];
+ 
+    /* Merging the cart items. */
+    const mergedCart = cart.reduce((acc, item) => {
+      const existingItem = acc.find((i) => i.id === item.id);
+      if (existingItem) {
+        existingItem.quantity += item.quantity;
+      } else {
+        acc.push(item);
+      }
+      return acc;
+    }, []);
+
+    /* Setting the cartList state to the mergedCart array. */
+    setCartList(mergedCart);
   }
 
   /**
@@ -49,7 +65,7 @@ const CartContextProvider = ({ children }) => {
    * @returns The total price of all items in the cart.
    */
   const getTotalPrice = () => {
-    return cartList.reduce((acc, item) => acc + item.price, 0);
+    return cartList.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   }
 
   /**

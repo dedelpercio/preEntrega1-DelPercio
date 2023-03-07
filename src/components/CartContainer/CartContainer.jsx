@@ -25,7 +25,10 @@ const CartContainer = () => {
     <div className="container">
       {
         cartHasItems()
-          ? <div>
+          ? <div className='mb-5'>
+              <div className='d-flex justify-content-end mb-3'>
+                <button type="button" className='btn btn-secondary' onClick={() => clearCart()}>Vaciar Carrito</button>
+              </div>
               {
                 cartList.map((item) => {
                   return (
@@ -33,16 +36,20 @@ const CartContainer = () => {
                   )
                 })
               }
-              <p>Precio total: ${ getTotalPrice() }</p>
-              <button type="button" className='btn btn-secondary' onClick={() => clearCart()}>Vaciar Carrito</button>
+              <div className='d-flex justify-content-end'>
+                <h2>Precio total: <b>${ getTotalPrice() }</b></h2>
+              </div>
+
               <CartOrderForm />
             </div>
-          : <div className="alert alert-danger" role="alert">
-              No hay productos en su carrito de compras
-            </div>
-        }
-        {
-          orderId !== '' ? `Su orden fue generada exitosamente: ${orderId}` :  ''
+          : orderId === '' 
+            ? <div className="alert alert-danger" role="alert">
+                No hay productos en su carrito de compras
+              </div>
+            : <div className="alert alert-success" role="alert">
+                <p>Su orden fue generada exitosamente.</p>
+                <p>Nº de pedido: <b>{orderId}</b></p>
+              </div>
         }
     </div>
   )
