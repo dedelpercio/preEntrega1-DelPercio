@@ -1,4 +1,4 @@
-# preEntrega2+DelPercio
+# DeRegalos App
 
 ### Project setup
 ```bash
